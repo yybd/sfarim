@@ -1,20 +1,20 @@
 {
-  "$schema": "https://schema.tauri.app/config/2",
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "sfarim",
   "version": "0.1.0",
-  "identifier": "com.yechiel.sfarim",
+  "identifier": "com.yybd.sfarim",
   "build": {
-    "beforeDevCommand": "pnpm dev",
+    "frontendDist": "../dist",
     "devUrl": "http://localhost:1420",
-    "beforeBuildCommand": "pnpm build",
-    "frontendDist": "../dist"
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
   },
   "app": {
     "windows": [
       {
-        "title": "sfarim",
-        "width": 1020,
-        "height": 1020,
+        "title": "",
+        "width": 800,
+        "height": 600,
         "resizable": true,
         "maximized": true,
         "decorations": false
