@@ -15,7 +15,9 @@
         "title": "sfarim",
         "width": 1020,
         "height": 1020,
-        "resizable": true
+        "resizable": true,
+        "maximized": true,
+        "decorations": false
       }
     ],
     "security": {
