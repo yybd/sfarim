@@ -1,0 +1,309 @@
+﻿<html>
+
+<head>
+
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+
+	<meta charset="utf-8" />
+	<title>תלמוד בבלי</title>
+
+	<script src="code/js/jquery-3.6.0.min.js"></script>
+	<script src="code/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="code/css/bootstrap.min.css">
+	<link rel="stylesheet" href="code/css/bootstrap-icons.css">
+
+
+	<link href="code/css/default.css" type="text/css" rel="stylesheet" />
+
+	<script src="code/js/mefarshim.js"></script>
+	<script src="code/js/default.js"></script>
+	<script src="js/index.js"></script>
+	<script src="cordova.js"></script>
+
+
+
+
+</head>
+
+<body onload="start()">
+
+	<div class="container-fluid">
+
+		<div class="row ">
+			<!-- Button trigger modal -->
+			<div class="col-1 text-center" id="text-gmara-bt" data-bs-toggle="modal" data-bs-target="#text-gmara">
+				<i class="bi bi-three-dots" style="font-size: 2rem"></i>
+			</div>
+			<!-- Modal -->
+			<div class="modal fade" id="text-gmara" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+				aria-labelledby="textgmaraLabel" aria-hidden="true">
+				<div class="modal-dialog modal-xl">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							<span class="headerMf" id="title-daf-gmara"></span>
+							<i class="headerMf bi bi-chevron-right " style="font-size: 2rem" onclick="backG()"></i>
+							<i class="headerMf bi bi-chevron-left " style="font-size: 2rem" onclick="nextG()"></i>
+						</div>
+						<div class="modal-body">
+
+							<div id="con-text-gmara">
+								<iframe class="daf-text" id="daf-text" width="100%" height="100%"></iframe>
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-4 text-center" id="">
+				<div></div>
+			</div>
+			<div class="col text-center" id="">
+			</div>
+
+		</div>
+		<div class="row p-2" id="num1">
+
+			<!-- Button trigger modal -->
+			<div class="col-2 text-center" id="masechet" data-bs-toggle="modal" data-bs-target="#exampleModal">
+				<i class="bi bi-book " style="font-size: 2rem"></i>
+
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<div class="modal-dialog modal-xl">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+
+								<table class="shas" id="shas">
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+									</tr>
+								</table>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="col text-center" id="back" onclick="back()">
+				<i class="bi bi-chevron-right" style="font-size: 1.8rem"></i>
+			</div>
+
+
+			<div class="col text-center" id="next" onclick="next()">
+				<i class="bi bi-chevron-left" style="font-size: 1.8rem"></i>
+			</div>
+
+
+
+			<!-- Button trigger modal -->
+			<div class="col-1 text-center" id="mefarshim-bt" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+				<i class="bi bi-journal-text " style="font-size: 2rem"></i>
+			</div>
+			<!-- Modal -->
+			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+				aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog modal-xl">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							<span class="headerMf" id="title-daf-mefaresh"></span>
+							<i class="headerMf bi bi-chevron-right " style="font-size: 2rem" onclick="backMf()"></i>
+							<i class="headerMf bi bi-chevron-left " style="font-size: 2rem" onclick="nextMf()"></i>
+
+
+
+
+						</div>
+						<div class="modal-body">
+							<table class="list-mefarshim" id="list-mefarshim">
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</table>
+							<div id="con-mefares">
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+		<div class="row p-3">
+			<div class="col-2 text-center " id="col-daf">
+				<ul class="daf" id="bar-daf"></ul>
+			</div>
+
+			<div class="col">
+				<iframe class="daf" id="daf"></iframe>
+			</div>
+			<div hidden>
+
+			</div>
+
+		</div>
+
+
+	</div>
+
+
+
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+.logo.vite:hover {
+  filter: drop-shadow(0 0 2em #747bff);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafb);
+}
+
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color: #0f0f0f;
+  background-color: #f6f6f6;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Updated container to be full screen and handle layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #f5f5f5;
+  /* Safari window bg color */
+}
+
+/* Tab Bar Styles - Safari Like */
+.tab-bar {
+  display: flex;
+  align-items: flex-end;
+  /* Align tabs to bottom of bar */
+  background-color: #f6f6f6
+    /*#e3e3e3*/
+  ;
+  /* Safari light gray titlebar */
+  padding: 8px 10px 0 10px;
+  /* Top padding, space on sides */
+  gap: 0;
+  /* Tabs touch each other or have minimal gap */
+  border-bottom: 1px solid #d1d1d1;
+  user-select: none;
+  overflow-x: auto;
+  height: 38px;
+  /* Fixed height for titlebar feel */
+  -webkit-app-region: drag;
+  /* Allow dragging window by empty space */
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  background-color: transparent;
+  cursor: default;
+  min-width: 100px;
+  max-width: 240px;
+  flex: 1;
+  /* Tabs grow to fill space */
+  height: 100%;
+  position: relative;
+  font-size: 13px;
+  color: #4d4d4d;
+  border-right: 1px solid #d1d1d1;
+  /* Separator */
+  transition: background-color 0.1s;
+  -webkit-app-region: no-drag;
+  /* Tabs themselves are clickable */
+}
+
+.tab:first-child {
+  border-left: 1px solid #d1d1d1;
+  border-top-left-radius: 4px;
+}
+
+.tab:last-child {
+  border-top-right-radius: 4px;
+}
+
+/* Active Tab logic */
+.tab.active {
+  background-color: #ffffff;
+  /* Active tab is lighter/white */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-bottom: none;
+  /* Connects to content */
+  color: #000;
+  font-weight: 500;
+  z-index: 2;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  margin-bottom: -1px;
+  /* Cover the border-bottom of tab-bar */
+  height: calc(100% + 1px);
+}
+
+.tab-title {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  margin: 0 4px;
+}
+
+/* Close Button - Safari style: appears on hover (mostly) */
+.close-tab-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  font-size: 14px;
+  color: #999;
+  line-height: 1;
+  border-radius: 4px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  /* Hidden by default */
+  transition: opacity 0.2s, background-color 0.2s;
+  margin-left: 4px;
+}
+
+.tab:hover .close-tab-btn,
+.tab.active .close-tab-btn {
+  opacity: 1;
+}
+
+.close-tab-btn:hover {
+  background-color: #ccc;
+  color: #333;
+}
+
+.add-tab-btn {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  font-size: 18px;
+  padding: 0 12px;
+  color: #666;
+  border-radius: 4px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+  margin-left: 4px;
+}
+
+.add-tab-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #000;
+}
+
+/* Tab Content Area */
+.tab-content {
+  flex-grow: 1;
+  background-color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.iframe-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.iframe-container iframe {
+  flex-grow: 1;
+  border: none;
+  /* No border for seamless look */
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+
+  /* Only implementing basic dark mode awareness */
+  :root {
+    color: #f6f6f6;
+    background-color: #2f2f2f;
+  }
+}

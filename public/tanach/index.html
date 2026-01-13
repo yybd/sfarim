@@ -1,0 +1,252 @@
+<html lang="he" dir="rtl">
+
+<head>
+  <meta charset="utf-8">
+  <!--
+    Customize this policy to fit your own app's needs. For more guidance, please refer to the docs:
+        https://cordova.apache.org/docs/en/latest/
+    Some notes:
+        * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+        * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+            * Enable inline JS: add 'unsafe-inline' to default-src
+    -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+
+  <title>משנה</title>
+  <meta content="text/html" http-equiv="content-type">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="-1">
+
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+
+
+
+  <script src="data/Torah/Genesis.js"></script>
+  <script src="data/Torah/Exodus.js"></script>
+  <script src="data/Torah/Leviticus.js"></script>
+  <script src="data/Torah/Numbers.js"></script>
+  <script src="data/Torah/Deuteronomy.js"></script>
+
+  <script src="data/Prophets/Joshua.js"></script>
+  <script src="data/Prophets/Judges.js"></script>
+  <script src="data/Prophets/I_Samuel.js"></script>
+  <script src="data/Prophets/II_Samuel.js"></script>
+  <script src="data/Prophets/I_Kings.js"></script>
+  <script src="data/Prophets/II_Kings.js"></script>
+  <script src="data/Prophets/Isaiah.js"></script>
+  <script src="data/Prophets/Jeremiah.js"></script>
+  <script src="data/Prophets/Ezekiel.js"></script>
+  <script src="data/Prophets/Hosea.js"></script>
+  <script src="data/Prophets/Joel.js"></script>
+  <script src="data/Prophets/Amos.js"></script>
+  <script src="data/Prophets/Obadiah.js"></script>
+  <script src="data/Prophets/Jonah.js"></script>
+  <script src="data/Prophets/Micah.js"></script>
+  <script src="data/Prophets/Nahum.js"></script>
+  <script src="data/Prophets/Habakkuk.js"></script>
+  <script src="data/Prophets/Zephaniah.js"></script>
+  <script src="data/Prophets/Haggai.js"></script>
+  <script src="data/Prophets/Zechariah.js"></script>
+  <script src="data/Prophets/Malachi.js"></script>
+
+  <script src="data/Writings/I_Chronicles.js"></script>
+  <script src="data/Writings/II_Chronicles.js"></script>
+  <script src="data/Writings/Psalms.js"></script>
+  <script src="data/Writings/Job.js"></script>
+  <script src="data/Writings/Proverbs.js"></script>
+  <script src="data/Writings/Ruth.js"></script>
+  <script src="data/Writings/Song_of_Songs.js"></script>
+  <script src="data/Writings/Ecclesiastes.js"></script>
+  <script src="data/Writings/Lamentations.js"></script>
+  <script src="data/Writings/Esther.js"></script>
+  <script src="data/Writings/Daniel.js"></script>
+  <script src="data/Writings/Ezra.js"></script>
+  <script src="data/Writings/Nehemiah.js"></script>
+
+
+
+
+  <script src="js/script.js"></script>
+
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="row ">
+      <div class="col-1 text-center" data-bs-toggle="modal" data-bs-target="#exampleModal2" id="">
+        <i class="bi bi-three-dots"></i>
+      </div>
+      <div class="col text-center" id="">
+        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <button type="button" class="btn btn-primary" id="bt_copy_nikud">העתק</button>
+                  </div>
+                  <textarea class="form-control" placeholder="הדבק טקסט מנוקד והעתק ללא ניקוד"
+                    aria-label="With textarea" id="copy_nikud"></textarea>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="col-4 text-center" id="">
+        <div></div>
+      </div>
+      <div class="col text-center" id="">
+      </div>
+    </div>
+    <div class="row p-3">
+      <div class="col text-center">
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+
+                <table class="tanach" id="tanach">
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row sticky-top bg-white">
+      <div class="col-1 text-center align-middle" data-bs-toggle="modal" data-bs-target="#exampleModal" id="toggle">
+
+        <i class="bi bi-book " style="font-size: 2rem"></i>
+      </div>
+
+      <div class="col text-center" id="prev">
+        <div>
+          <i class="bi bi-chevron-right" style="font-size: 1.8rem"></i>
+        </div>
+      </div>
+      <div class="col-4 text-center" id="masechet" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <div id="name-tanach"> </div>
+      </div>
+      <div class="col text-center" id="next">
+        <i class="bi bi-chevron-left" style="font-size: 1.8rem"></i>
+      </div>
+      <div class="col-1 text-center" id="font">
+        <i id="font-button" style="font-size: 1.8rem">א</i>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-1 text-center ">
+      </div>
+      <div hidden class="col">
+        <div class="title" id="bartenura-title">רש״י</div>
+      </div>
+      <div class="col-11 text-justify">
+        <div class="title" id="tanach-title"></div>
+      </div>
+      <div hidden class="col">
+        <div class="title" id="rambam-title">תרגום</div>
+
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-1 text-center ">
+        <ul class="sticky-top p-3 bg-white" id="list"></ul>
+      </div>
+      <div hidden class="col">
+        <div id="rashi"></div>
+      </div>
+      <div class="col-11 text-justify">
+        <div id="tanach-con"></div>
+
+      </div>
+      <div hidden class="col">
+        <div id="targum"></div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+@font-face {
+    font-family: 'rashibd';
+    src: url('fonts/rashibd.woff2') format('woff2'),
+        url('fonts/rashibd.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Guttman Vilna';
+    src: url('fonts/GuttmanVilna.woff2') format('woff2'),
+        url('fonts/GuttmanVilna.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+#name-mishna{
+    font-size: x-large;
+    font-family: 'Guttman Vilna';
+    line-height: 1.8;
+}
+
+
+#mishna{
+    text-align: justify;
+    font-size: x-large;
+    font-family: 'Guttman Vilna';
+    line-height: 1.8;
+}
+#bartenura{
+    text-align: justify;
+    font-family: "rashibd";
+    font-size: large;
+    line-height: 1.5;
+}
+#rambam{
+    text-align: justify;
+    font-family: "rashibd";
+    font-size: large;
+}
+
+.title{
+    text-align: center;
+    font-weight: bold;
+    font-size: large;
+    font-family: 'Guttman Vilna';
+}
+
+a{
+    font-family: 'Guttman Vilna';
+    font-weight: bold;
+}
+
+#shas{
+width:  90%; margin-left:auto; margin-right:auto
+}
+
+.cal{
+    height: 100%;
+    border-bottom:  solid; border-color: silver; border-width: 1px; border-spacing:0px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+
+  }
+
+  li{
+    border-bottom:  solid; border-color: silver; border-width: 1px; border-spacing:0px;
+    line-height: 2.8;
+  }
+
+  textarea{
+    height: 8rem;
+  }
