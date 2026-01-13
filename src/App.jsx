@@ -4,12 +4,12 @@ import { invoke } from "@tauri-apps/api/core";
 import "./App.css";
 
 function App() {
-  const [tabs, setTabs] = useState([{ id: 1, title: "New Tab", url: "/index.html" }]);
+  const [tabs, setTabs] = useState([{ id: 1, title: "New Tab", url: "/home.html" }]);
   const [activeTabId, setActiveTabId] = useState(1);
 
   const handleAddTab = () => {
     const newId = Date.now();
-    const newTab = { id: newId, title: "New Tab", url: "/index.html" };
+    const newTab = { id: newId, title: "New Tab", url: "/home.html" };
     setTabs([...tabs, newTab]);
     setActiveTabId(newId);
   };
@@ -23,7 +23,7 @@ function App() {
       // Let's just create a new fresh tab if all are closed for now, or prevent closing the last one.
       // OPTION: Create a new tab.
       const newId = Date.now();
-      setTabs([{ id: newId, title: "New Tab", url: "/index.html" }]);
+      setTabs([{ id: newId, title: "New Tab", url: "/home.html" }]);
       setActiveTabId(newId);
     } else {
       setTabs(newTabs);
