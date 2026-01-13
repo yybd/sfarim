@@ -72,11 +72,33 @@ function App() {
               title={`Tab ${tab.id}`}
               onLoad={(e) => {
                 try {
-                  const title = e.target.contentDocument.title;
-                  if (title) {
-                    setTabs(prevTabs => prevTabs.map(t =>
-                      t.id === tab.id ? { ...t, title: title } : t
-                    ));
+                  const iframeDocument = e.target.contentDocument;
+                  if (iframeDocument) {
+                    const updateTitle = () => {
+                      const title = iframeDocument.title;
+                      if (title) {
+                        setTabs(prevTabs => prevTabs.map(t =>
+                          t.id === tab.id ? { ...t, title: title } : t
+                        ));
+                      }
+                    };
+
+                    // Initial update
+                    updateTitle();
+
+                    // Observe for changes
+                    const observer = new MutationObserver(updateTitle);
+
+                    // Observe the <title> tag directly if it exists, otherwise the <head>
+                    const targetNode = iframeDocument.querySelector('title') || iframeDocument.head;
+
+                    if (targetNode) {
+                      observer.observe(targetNode, {
+                        childList: true,
+                        subtree: true,
+                        characterData: true
+                      });
+                    }
                   }
                 } catch (err) {
                   console.warn("Could not read iframe title (likely cross-origin):", err);
