@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "tauri:macos:dev": "tauri-macos-xcode dev --open"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",
@@ -16,9 +17,11 @@
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
+    "@choochmeque/tauri-macos-xcode": "^0.1.0",
     "@tailwindcss/vite": "^4.1.18",
     "@tauri-apps/cli": "^2",
     "@vitejs/plugin-react": "^4.6.0",
+    "dotenv-cli": "^11.0.0",
     "vite": "^7.0.4"
   }
 }
