@@ -17,50 +17,57 @@
 }
 
 
-#name-mishna{
+#name-mishna {
     font-size: x-large;
     font-family: 'Guttman Vilna';
     line-height: 1.8;
 }
 
 
-#mishna{
+#mishna {
     text-align: justify;
     font-size: x-large;
     font-family: 'Guttman Vilna';
     line-height: 1.8;
 }
-#bartenura{
+
+#bartenura {
     text-align: justify;
     font-family: "rashibd";
     font-size: large;
     line-height: 1.5;
 }
-#rambam{
+
+#rambam {
     text-align: justify;
     font-family: "rashibd";
     font-size: large;
 }
 
-.title{
+.title {
     text-align: center;
     font-weight: bold;
     font-size: large;
     font-family: 'Guttman Vilna';
 }
 
-a{
+a {
     font-family: 'Guttman Vilna';
     font-weight: bold;
 }
 
-#shas{
-width:  90%; margin-left:auto; margin-right:auto
+#shas {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto
 }
 
-.cal{
+.cal {
     height: 100%;
-    border-bottom:  solid; border-color: silver; border-width: 1px; border-spacing:0px;
+    border-bottom: solid;
+    border-color: silver;
+    border-width: 1px;
+    border-spacing: 0px;
     text-align: center;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -72,13 +79,64 @@ ul {
     margin: 0;
     padding: 0;
 
-  }
+}
 
-  li{
-    border-bottom:  solid; border-color: silver; border-width: 1px; border-spacing:0px;
+li {
+    border-bottom: solid;
+    border-color: silver;
+    border-width: 1px;
+    border-spacing: 0px;
     line-height: 2.8;
-  }
+}
 
-  textarea{
+textarea {
     height: 8rem;
-  }
+}
+
+/* Mobile Tabs Styles */
+#mobile-tabs {
+    font-family: 'Guttman Vilna', serif;
+    font-size: 1.2rem;
+}
+
+.active-tab {
+    font-weight: bold;
+    border-bottom: 3px solid #0d6efd;
+    color: #0d6efd;
+    background-color: #f8f9fa;
+}
+
+/* Helper classes for mobile visibility */
+@media (max-width: 992px) {
+    .mobile-d-none {
+        display: none !important;
+    }
+
+    .mobile-d-block {
+        display: block !important;
+    }
+
+    body {
+        font-size: 1.1rem;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+
+    #bartenura,
+    #rambam {
+        font-size: 1.4rem !important;
+        line-height: 1.6;
+    }
+}
+
+/* Custom Modal Styling */
+.custom-full-width {
+    max-width: 98vw !important;
+}
+
+.modal-dialog-scrollable .modal-content {
+    max-height: 98vh;
+}

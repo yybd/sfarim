@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>ספרים</title>
-    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
     <meta content="yes" name="apple-mobile-web-app-capable" />
 
 
@@ -19,11 +19,13 @@
         }
 
         body {
-            width: 35em;
+            width: 100%;
+            max-width: 600px;
             margin: 0 auto;
             text-align: center;
             line-height: 3.8;
             font-family: Tahoma, Verdana, Arial, sans-serif;
+            padding: 10px;
         }
 
         a {
@@ -34,6 +36,18 @@
         h1 {
             line-height: 3;
         }
+        
+        /* Mobile-friendly button stacking */
+        .btn-group-vertical-mobile {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .btn-lg {
+            width: 100%;
+        }
     </style>
 
 </head>
@@ -42,23 +56,22 @@
     <h1><i class="bi bi-book"></i></h1>
 
 
-    <p>
-        <button type="button" class="btn  btn-outline-primary btn-lg">
-            <a href="tanach/index.html">תנ״ך</a>
-        </button>
-        <button type="button" class="btn  btn-outline-primary btn-lg">
-            <a href="mishna/index.html">משנה</a>
-        </button>
-        <button type="button" class="btn btn-outline-primary btn-lg">
-            <a href="shas/index.html">תלמוד בבלי</a><br />
-        </button>
-        <button type="button" class="btn btn-outline-primary btn-lg">
-            <a href="rambam/index.html">רמב״ם</a><br />
-        </button>
-
-
-
-    </p>
+    <div class="container">
+        <div class="btn-group-vertical-mobile">
+            <button type="button" class="btn btn-outline-primary btn-lg">
+                <a href="tanach/index.html" class="d-block">תנ״ך</a>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-lg">
+                <a href="mishna/index.html" class="d-block">משנה</a>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-lg">
+                <a href="shas/index.html" class="d-block">תלמוד בבלי</a>
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-lg">
+                <a href="rambam/index.html" class="d-block">רמב״ם</a>
+            </button>
+        </div>
+    </div>
 
     <p><em></em></p>
 </body>

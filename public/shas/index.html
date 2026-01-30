@@ -14,12 +14,12 @@
 	<link rel="stylesheet" href="code/css/bootstrap-icons.css">
 
 
-	<link href="code/css/default.css" type="text/css" rel="stylesheet" />
+	<link href="code/css/default.css?v=19" type="text/css" rel="stylesheet" />
 
 	<script src="code/js/mefarshim.js"></script>
-	<script src="code/js/default.js"></script>
-	<script src="js/index.js"></script>
-	<script src="cordova.js"></script>
+	<script src="code/js/pdf.min.js"></script>
+	<script src="code/js/pdf.worker.min.js"></script>
+	<script src="code/js/default.js?v=16"></script>
 
 
 
@@ -28,7 +28,7 @@
 
 <body onload="start()">
 
-	<div class="container-fluid">
+	<div class="container-fluid px-2">
 
 		<div class="row ">
 			<!-- Button trigger modal -->
@@ -38,7 +38,7 @@
 			<!-- Modal -->
 			<div class="modal fade" id="text-gmara" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 				aria-labelledby="textgmaraLabel" aria-hidden="true">
-				<div class="modal-dialog modal-xl">
+				<div class="modal-dialog modal-xl modal-dialog-scrollable custom-full-width">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -49,7 +49,6 @@
 						<div class="modal-body">
 
 							<div id="con-text-gmara">
-								<iframe class="daf-text" id="daf-text" width="100%" height="100%"></iframe>
 
 							</div>
 
@@ -65,137 +64,59 @@
 			</div>
 
 		</div>
-		<div class="row p-2" id="num1">
+		<div class="row p-2 align-items-center" id="num1">
+			<!-- Right Group: Menu Buttons -->
+			<div class="col-auto d-flex align-items-center">
+				<!-- Mobile Toggle -->
+				<div class="px-2 d-lg-none" id="list-toggle-bt" onclick="toggleDafList()" style="cursor: pointer;">
+					<i class="bi bi-list-ul" style="font-size: 2rem"></i>
+				</div>
 
-			<!-- Button trigger modal -->
-			<div class="col-2 text-center" id="masechet" data-bs-toggle="modal" data-bs-target="#exampleModal">
-				<i class="bi bi-book " style="font-size: 2rem"></i>
+				<!-- Masechet Book -->
+				<div class="px-2" id="masechet" data-bs-toggle="modal" data-bs-target="#exampleModal"
+					style="cursor: pointer;">
+					<i class="bi bi-book " style="font-size: 2rem"></i>
+				</div>
 
-				<!-- Modal -->
-				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-					aria-hidden="true">
-					<div class="modal-dialog modal-xl">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-
-								<table class="shas" id="shas">
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-									</tr>
-								</table>
-
-
-							</div>
-						</div>
-					</div>
+				<!-- Bookmark (Mefarshim) -->
+				<div class="px-2" id="mefarshim-bt" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+					style="cursor: pointer;">
+					<i class="bi bi-blockquote-right" style="font-size: 2rem"></i>
 				</div>
 			</div>
 
+			<!-- Left/Center Group: Navigation & Zoom -->
+			<div class="col d-flex justify-content-end align-items-center">
+				<!-- Back (Right Arrow) -->
+				<div class="px-2" id="back" onclick="back()" style="cursor: pointer;">
+					<i class="bi bi-chevron-right" style="font-size: 1.8rem"></i>
+				</div>
 
+				<!-- Zoom Controls -->
+				<div id="pdf-controls" class="px-2">
+					<button class="btn btn-outline-secondary btn-sm" onclick="zoomOut()"><i
+							class="bi bi-dash"></i></button>
+					<button class="btn btn-outline-secondary btn-sm" onclick="zoomIn()"><i
+							class="bi bi-plus"></i></button>
+				</div>
 
-			<div class="col text-center" id="back" onclick="back()">
-				<i class="bi bi-chevron-right" style="font-size: 1.8rem"></i>
+				<!-- Next (Left Arrow) -->
+				<div class="px-2" id="next" onclick="next()" style="cursor: pointer;">
+					<i class="bi bi-chevron-left" style="font-size: 1.8rem"></i>
+				</div>
 			</div>
 
-
-			<div class="col text-center" id="next" onclick="next()">
-				<i class="bi bi-chevron-left" style="font-size: 1.8rem"></i>
-			</div>
-
-
-
-			<!-- Button trigger modal -->
-			<div class="col-1 text-center" id="mefarshim-bt" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-				<i class="bi bi-journal-text " style="font-size: 2rem"></i>
-			</div>
-			<!-- Modal -->
-			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-				aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<!-- Modals (kept in structure but hidden until triggered) -->
+			<!-- Modal Masechet -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
 				<div class="modal-dialog modal-xl">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							<span class="headerMf" id="title-daf-mefaresh"></span>
-							<i class="headerMf bi bi-chevron-right " style="font-size: 2rem" onclick="backMf()"></i>
-							<i class="headerMf bi bi-chevron-left " style="font-size: 2rem" onclick="nextMf()"></i>
-
-
-
-
 						</div>
 						<div class="modal-body">
-							<table class="list-mefarshim" id="list-mefarshim">
+							<table class="shas" id="shas">
 								<tr>
 									<td></td>
 									<td></td>
@@ -267,35 +188,122 @@
 									<td></td>
 								</tr>
 							</table>
-							<div id="con-mefares">
-
-							</div>
-
 						</div>
-
 					</div>
 				</div>
 			</div>
 
-
+			<!-- Modal Mefarshim (Restored) -->
+			<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+				aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				<div class="modal-dialog modal-xl modal-dialog-scrollable custom-full-width">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							<span class="headerMf" id="title-daf-mefaresh"></span>
+							<i class="headerMf bi bi-chevron-right " style="font-size: 2rem" onclick="backMf()"></i>
+							<i class="headerMf bi bi-chevron-left " style="font-size: 2rem" onclick="nextMf()"></i>
+						</div>
+						<div class="modal-body">
+							<table class="list-mefarshim" id="list-mefarshim">
+								<!-- Recreating 10 rows as per previous file state -->
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</table>
+							<div id="con-mefares"></div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 
-		<div class="row p-3">
-			<div class="col-2 text-center " id="col-daf">
+		<div class="row g-0" id="main-content-row">
+			<div class="col-2 col-lg-1 text-center d-none d-lg-block" id="col-daf">
 				<ul class="daf" id="bar-daf"></ul>
 			</div>
 
-			<div class="col">
-				<iframe class="daf" id="daf"></iframe>
+			<div class="col-12 col-lg-11 text-center" style="position: relative;">
+				<!-- PDF Container -->
+				<div id="canvas-container"
+					style="overflow: auto; -webkit-overflow-scrolling: touch; max-height: 85vh; text-align: center;">
+					<div id="pdf-wrapper" style="position: relative; display: inline-block;">
+						<canvas id="the-canvas" style="direction: ltr; display: block;"></canvas>
+						<div id="book-effect-overlay"
+							style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10;">
+						</div>
+					</div>
+				</div>
 			</div>
-			<div hidden>
-
-			</div>
-
+			<div hidden></div>
 		</div>
-
-
-	</div>
 
 
 

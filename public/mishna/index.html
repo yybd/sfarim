@@ -14,7 +14,7 @@
     content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
-  <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
   <meta name="color-scheme" content="light dark">
 
   <title>משנה</title>
@@ -97,12 +97,12 @@
 
 
 
-  <script src="js/script.js"></script>
+  <script src="js/script.js?v=2"></script>
 
 
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-icons.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
 
 </head>
 
@@ -114,7 +114,7 @@
       </div>
       <div class="col text-center" id="">
         <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl">
+          <div class="modal-dialog modal-xl modal-dialog-scrollable custom-full-width">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -146,7 +146,7 @@
       <div class="col text-center">
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl">
+          <div class="modal-dialog modal-xl modal-dialog-scrollable custom-full-width">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -272,36 +272,51 @@
       </div>
 
     </div>
-    <div class="row ">
-      <div class="col-1 text-center ">
+    <!-- Tab Navigation for Mobile -->
+    <div class="row d-lg-none sticky-top bg-white border-bottom" id="mobile-tabs" style="top: 60px; z-index: 1020;">
+      <div class="col text-center p-2 border-end active-tab" id="tab-mishna">
+        <span>משנה</span>
       </div>
-      <div class="col">
+      <div class="col text-center p-2 border-end" id="tab-bartenura">
+        <span>ברטנורה</span>
+      </div>
+      <div class="col text-center p-2" id="tab-rambam">
+        <span>רמב"ם</span>
+      </div>
+    </div>
+
+    <!-- Titles Row -->
+    <div class="row">
+      <div class="col-1 text-center d-none d-lg-block">
+      </div>
+      <div class="col d-none d-lg-block mobile-col-bartenura">
         <div class="title" id="bartenura-title">ברטנורה</div>
       </div>
-      <div class="col-4 text-justify">
+      <div class="col-lg-4 col-12 text-justify mobile-col-mishna">
         <div class="title" id="mishna-title"></div>
       </div>
-      <div class="col">
+      <div class="col d-none d-lg-block mobile-col-rambam">
         <div class="title" id="rambam-title">רמב"ם</div>
-
       </div>
     </div>
-    <div class="row ">
-      <div class="col-1 text-center ">
-        <ul class="sticky-top p-3 bg-white" id="list"></ul>
+
+    <!-- Content Row -->
+    <div class="row">
+      <div class="col-1 text-center px-0">
+        <ul class="sticky-top p-0 bg-white" id="list"></ul>
       </div>
-      <div class="col">
+      <div class="col-11 col-lg d-none d-lg-block mobile-col-bartenura">
         <div id="bartenura"></div>
       </div>
-      <div class="col-4 text-justify">
+      <div class="col-11 col-lg-4 text-justify mobile-col-mishna">
         <div id="mishna"></div>
-
       </div>
-      <div class="col">
+      <div class="col-11 col-lg d-none d-lg-block mobile-col-rambam">
         <div id="rambam"></div>
-
       </div>
     </div>
+
+
   </div>
 
 </body>

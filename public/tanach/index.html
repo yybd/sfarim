@@ -14,7 +14,7 @@
     content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
-  <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
   <meta name="color-scheme" content="light dark">
 
   <title>משנה</title>
@@ -72,12 +72,12 @@
 
 
 
-  <script src="js/script.js"></script>
+  <script src="js/script.js?v=2"></script>
 
 
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bootstrap-icons.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
 
 </head>
 
@@ -89,7 +89,7 @@
       </div>
       <div class="col text-center" id="">
         <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl">
+          <div class="modal-dialog modal-xl modal-dialog-scrollable custom-full-width">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -121,7 +121,7 @@
       <div class="col text-center">
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-xl">
+          <div class="modal-dialog modal-xl modal-dialog-scrollable custom-full-width">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -216,12 +216,12 @@
       </div>
     </div>
     <div class="row ">
-      <div class="col-1 text-center ">
+      <div class="col-1 text-center px-0">
       </div>
       <div hidden class="col">
         <div class="title" id="bartenura-title">רש״י</div>
       </div>
-      <div class="col-11 text-justify">
+      <div class="col-11 col-lg-11 text-justify">
         <div class="title" id="tanach-title"></div>
       </div>
       <div hidden class="col">
@@ -230,13 +230,13 @@
       </div>
     </div>
     <div class="row ">
-      <div class="col-1 text-center ">
-        <ul class="sticky-top p-3 bg-white" id="list"></ul>
+      <div class="col-1 text-center px-0">
+        <ul class="sticky-top p-0 bg-white" id="list"></ul>
       </div>
       <div hidden class="col">
         <div id="rashi"></div>
       </div>
-      <div class="col-11 text-justify">
+      <div class="col-11 col-lg-11 text-justify">
         <div id="tanach-con"></div>
 
       </div>
