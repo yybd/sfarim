@@ -36,6 +36,12 @@ jobs:
       - name: Install frontend dependencies
         run: pnpm install
 
+      # Sparkle.framework is gitignored (3 MB binary, public repo), and the
+      # updater plugin's build script fails without it. macOS only.
+      - name: Fetch Sparkle framework
+        if: matrix.platform == 'macos-latest'
+        run: ./scripts/fetch-sparkle.sh
+
       - name: Build frontend
         run: pnpm build
 

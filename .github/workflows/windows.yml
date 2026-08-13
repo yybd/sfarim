@@ -1,0 +1,64 @@
+name: Windows build
+
+# Builds the Windows installer and leaves it as a downloadable artifact.
+# Nothing is published from here — the installer is fetched and uploaded to R2
+# separately (see scripts/publish-r2.sh and the README).
+#
+# Sparkle (auto-updates) is macOS-only, so this build has no updater: a new
+# Windows version means downloading the installer again.
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'release/**'
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo build
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'pnpm'
+
+      - name: Install frontend dependencies
+        run: pnpm install
+
+      # tauri.conf.json lists the macOS bundle targets, so the Windows targets
+      # are named explicitly here. NSIS gives a single .exe setup, which is what
+      # a direct download wants.
+      - name: Build Windows installer
+        run: pnpm tauri build --bundles nsis
+
+      - name: Show what was produced
+        run: Get-ChildItem -Recurse src-tauri/target/release/bundle -Include *.exe | Select-Object FullName, @{n='MB';e={[math]::Round($_.Length/1MB,1)}}
+        shell: pwsh
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: sfarim-windows-nsis
+          path: src-tauri/target/release/bundle/nsis/*.exe
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0 # the payload is already compressed; skip the pointless re-zip

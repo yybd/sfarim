@@ -4,6 +4,10 @@ import { invoke } from "@tauri-apps/api/core";
 import { checkForUpdates } from "tauri-plugin-sparkle-updater-api";
 import "./App.css";
 
+// Sparkle is macOS-only — the plugin is not compiled into the Windows build, so
+// the button must not be offered there (invoking it would just fail).
+const isMac = /Mac|Macintosh/i.test(navigator.userAgent);
+
 function App() {
   const [tabs, setTabs] = useState([{ id: 1, title: "New Tab", url: "/home.html" }]);
   const [activeTabId, setActiveTabId] = useState(1);
@@ -68,13 +72,15 @@ function App() {
         <button className="add-tab-btn" onClick={handleAddTab} title="New Tab">
           +
         </button>
-        <button
-          className="add-tab-btn update-btn"
-          onClick={handleCheckForUpdates}
-          title="בדיקת עדכונים"
-        >
-          ⟳
-        </button>
+        {isMac && (
+          <button
+            className="add-tab-btn update-btn"
+            onClick={handleCheckForUpdates}
+            title="בדיקת עדכונים"
+          >
+            ⟳
+          </button>
+        )}
       </div>
 
       {/* Tab Content (Iframes) */}
