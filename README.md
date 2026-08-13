@@ -17,6 +17,16 @@ offline, tabbed library — no internet connection required.
 **<https://storage.bdtech.app/sfarim/releases/Sfarim.dmg>** — a permanent link that
 stays valid across versions. ~550 MB (the entire library ships inside the app).
 
+> **Apple Silicon only** · **למחשבי Apple Silicon בלבד (M1 ומעלה)**
+> The build is arm64-only, so it will not launch on an Intel Mac — Rosetta
+> translates x86 to ARM, not the other way round. **Anywhere this link is
+> published, that requirement has to be stated next to it.**
+>
+> This is a deliberate choice, not an oversight: because the library is compiled
+> into the binary (see [Bundle size](#bundle-size--גודל-האפליקציה)), a universal
+> build would carry the content twice and push the download to ~1.1 GB for every
+> user. Revisit it if the content ever moves out of the binary.
+
 **ספרים** היא אפליקציית דסקטופ ל-macOS המאגדת תנ"ך, משנה, תלמוד בבלי ורמב"ם בממשק לשוניות (טאבים)
 בסגנון ספארי. כל התוכן ארוז בתוך האפליקציה — הלימוד עובד לגמרי ללא אינטרנט.
 
@@ -149,7 +159,7 @@ Existing users get the update automatically within a day.
 |--------|--------------|
 | `scripts/fetch-sparkle.sh` | Downloads Sparkle 2.8.1 into `src-tauri/Frameworks/` (checksum-pinned). Run **once per clone** — the framework is gitignored because this repo is public. |
 | `scripts/sign-sparkle.sh` | Re-signs Sparkle with our Developer ID, inside out. Run automatically by the release script. |
-| `scripts/release-macos.sh` | The full release build. `--universal` also builds for Intel (roughly doubles the download). |
+| `scripts/release-macos.sh` | The full release build. Releases are deliberately arm64-only — `--universal` adds Intel but doubles the download; read the note under [Download](#-download--הורדה) first. |
 | `scripts/publish-r2.sh` | Publishes what's staged in `releases/` to Cloudflare R2. |
 
 ### What the release script does / מה הסקריפט עושה

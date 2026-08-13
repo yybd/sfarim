@@ -11,7 +11,7 @@ the app ever ships to the App Store, as the release notes for that version.
 
 ## v1.0.0 — first public release
 
-*Released 2026-08-13 · macOS 11+ (Apple Silicon) · direct download*
+*Released 2026-08-13 · macOS 11+ · **Apple Silicon only** · direct download*
 
 First public, distributable build. Everything below shipped in it.
 
