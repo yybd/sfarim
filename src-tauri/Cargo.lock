@@ -77,7 +77,7 @@ checksum = "a23eb6b1614318a8071c9b2521f36b424b2c83db5eb3a0fead4a6c0809af6e61"
 
 [[package]]
 name = "app"
-version = "0.1.0"
+version = "1.0.0"
 dependencies = [
  "log",
  "serde",
@@ -85,6 +85,7 @@ dependencies = [
  "tauri",
  "tauri-build",
  "tauri-plugin-log",
+ "tauri-plugin-sparkle-updater",
 ]
 
 [[package]]
@@ -3521,6 +3522,25 @@ dependencies = [
  "tauri-plugin",
  "thiserror 2.0.17",
  "time",
+]
+
+[[package]]
+name = "tauri-plugin-sparkle-updater"
+version = "0.2.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5402e89cb4f120fb874951c46d9ff1c5f18fe34457025e01eb2325e1b83eab84"
+dependencies = [
+ "dispatch",
+ "log",
+ "objc2",
+ "objc2-app-kit",
+ "objc2-foundation",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-plugin",
+ "thiserror 2.0.17",
+ "url",
 ]
 
 [[package]]

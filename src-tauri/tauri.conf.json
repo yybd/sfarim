@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "productName": "sfarim",
-  "version": "0.1.0",
+  "productName": "Sfarim",
+  "version": "1.0.0",
   "identifier": "com.yybd.sfarim",
   "build": {
     "frontendDist": "../dist",
@@ -26,13 +26,25 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "targets": ["app", "dmg"],
+    "category": "Education",
+    "copyright": "Copyright © 2026 Y. Ben David",
+    "publisher": "Yechiel Ben David",
+    "homepage": "https://www.bdtech.app",
+    "shortDescription": "ספרים — תנ\"ך, משנה, ש\"ס ורמב\"ם בלשוניות",
+    "longDescription": "ספרים היא אפליקציית לימוד לשולחן העבודה המאגדת תנ\"ך, משנה, ש\"ס ורמב\"ם בממשק לשוניות בסגנון ספארי, לגלישה מהירה בין מקורות בלי חיבור לאינטרנט.",
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ]
+    ],
+    "macOS": {
+      "signingIdentity": "Developer ID Application: Yechiel Ben David (6AL5F29Z3D)",
+      "hardenedRuntime": true,
+      "minimumSystemVersion": "11.0",
+      "frameworks": ["Frameworks/Sparkle.framework"]
+    }
   }
 }

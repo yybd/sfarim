@@ -1,0 +1,9 @@
+# Sparkle lives in src-tauri/Frameworks/ (gitignored — downloaded, not committed).
+# The plugin's build script looks for it via SPARKLE_FRAMEWORK_PATH, and the app
+# needs an rpath into Contents/Frameworks to load it at runtime.
+
+[env]
+SPARKLE_FRAMEWORK_PATH = { value = "Frameworks", relative = true }
+
+[target.'cfg(target_os = "macos")']
+rustflags = ["-C", "link-arg=-Wl,-rpath,@executable_path/../Frameworks"]

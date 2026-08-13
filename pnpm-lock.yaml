@@ -20,6 +20,9 @@ importers:
       react-dom:
         specifier: ^19.1.0
         version: 19.2.3(react@19.2.3)
+      tauri-plugin-sparkle-updater-api:
+        specifier: ^0.2.2
+        version: 0.2.2
     devDependencies:
       '@choochmeque/tauri-macos-xcode':
         specifier: ^0.1.0
@@ -1110,6 +1113,9 @@ packages:
     resolution: {integrity: sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==}
     engines: {node: '>=6'}
 
+  tauri-plugin-sparkle-updater-api@0.2.2:
+    resolution: {integrity: sha512-hbGvtx86R+PLG8X5wW/RCg9zuXmqCakYrzAyBZ7LD0glHVjJye+RHGUQB0ZQlkb4WPMXH5oGbNth4Z3mOe8uzA==}
+
   tinycolor2@1.6.0:
     resolution: {integrity: sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==}
 
@@ -2194,6 +2200,10 @@ snapshots:
   tailwindcss@4.1.18: {}
 
   tapable@2.3.0: {}
+
+  tauri-plugin-sparkle-updater-api@0.2.2:
+    dependencies:
+      '@tauri-apps/api': 2.9.1
 
   tinycolor2@1.6.0: {}
 

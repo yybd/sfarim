@@ -14,7 +14,8 @@
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-opener": "^2",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "tauri-plugin-sparkle-updater-api": "^0.2.2"
   },
   "devDependencies": {
     "@choochmeque/tauri-macos-xcode": "^0.1.0",

@@ -1,26 +1,49 @@
-# Sfarim / ספרים
+# ספרים
 
-**Sfarim** is a modern desktop application that serves as a unified wrapper for legacy Tanach and Mishna web applications. Built with **Tauri v2** and **React**, it provides a robust, tabs-based browsing experience similar to Safari, optimized for performance and immersion.
+A macOS desktop reader that bundles Tanach, Mishna, Talmud Bavli and Rambam into one
+offline, tabbed library — no internet connection required.
 
-**ספרים** היא אפליקציית דסקטופ מודרנית המאגדת ספריות ווב קיימות של תנ"ך ומשנה. האפליקציה נבנתה באמצעות **Tauri v2** ו-**React**, ומספקת חווית גלישה מבוססת לשוניות (טאבים) בסגנון ספארי, עם דגש על ביצועים וחווית משתמש עוטפת.
+- **App name:** ספרים (bundle / file name: `Sfarim`)
+- **App Store name:** _not decided yet — direct download only for now_
+- **Subtitle:** _not decided yet_
+- **Platform:** macOS 11+ (Apple Silicon)
+- **Bundle id:** `com.yybd.sfarim`
+- **Built with:** Tauri v2 (Rust) + React 19, fully offline
+- **Distribution:** direct download — Developer ID signed, notarized and stapled DMG
+- **Updates:** Sparkle, appcast at `https://storage.bdtech.app/sfarim/releases/appcast.xml`
+
+### 📥 Download / הורדה
+
+**<https://storage.bdtech.app/sfarim/releases/Sfarim.dmg>** — a permanent link that
+stays valid across versions. ~550 MB (the entire library ships inside the app).
+
+**ספרים** היא אפליקציית דסקטופ ל-macOS המאגדת תנ"ך, משנה, תלמוד בבלי ורמב"ם בממשק לשוניות (טאבים)
+בסגנון ספארי. כל התוכן ארוז בתוך האפליקציה — הלימוד עובד לגמרי ללא אינטרנט.
 
 ---
+
+**Version 1.0.0** · First public release — direct download
+Full history: [CHANGELOG.md](CHANGELOG.md)
 
 ## Features / תכונות
 
-- **Modern Architecture**: Powered by Rust (Tauri) and React for high performance and security.
+- **Four libraries in one app**: Tanach, Mishna, Talmud Bavli and Rambam, opened from a single home screen.
+- **Fully offline**: every text ships inside the app — no network access, no account, no tracking.
 - **Safari-style Tabs**: Manage multiple texts and pages simultaneously with a clean, intuitive tab interface.
 - **Dynamic Titles**: Tabs automatically update their names based on the content being viewed.
 - **Immersive View**: Launches in generalized full-screen mode to remove distractions.
-- **Legacy Integration**: Seamlessly renders existing HTML/JS content within a modern container.
+- **Automatic updates**: Sparkle checks for new versions in the background; ⟳ in the tab bar checks on demand.
+- **Modern Architecture**: Powered by Rust (Tauri) and React for high performance and security.
 
 ---
 
-- **ארכיטקטורה מודרנית**: מבוסס על Rust (Tauri) ו-React לביצועים גבוהים ואבטחה.
+- **ארבע ספריות באפליקציה אחת**: תנ"ך, משנה, תלמוד בבלי ורמב"ם — הכול ממסך בית אחד.
+- **עובד לגמרי לא מקוון**: כל הטקסטים ארוזים בתוך האפליקציה — בלי אינטרנט, בלי חשבון, בלי מעקב.
 - **לשוניות בסגנון ספארי**: ניהול מספר טקסטים במקביל עם ממשק טאבים נקי ואינטואיטיבי.
 - **כותרות דינמיות**: שמות הטאבים מתעדכנים אוטומטית בהתאם לתוכן הנצפה.
 - **חוויה אימרסיבית**: האפליקציה נפתחת בחלון מקסימלי למיקוד בתוכן.
-- **אינטגרציה חלקה**: טעינת תוכן HTML/JS קיים בתוך מעטפת מודרנית.
+- **עדכונים אוטומטיים**: Sparkle בודק גרסאות חדשות ברקע; כפתור ⟳ בשורת הלשוניות בודק ביוזמת המשתמש.
+- **ארכיטקטורה מודרנית**: מבוסס על Rust (Tauri) ו-React לביצועים גבוהים ואבטחה.
 
 ---
 
@@ -35,6 +58,34 @@ The application is structured as a hybrid desktop app:
     -   **Iframe Isolation**: Legacy content loads inside sandboxed iframes, ensuring style isolation and stability.
     -   **Title Observer**: A `MutationObserver` attaches to each iframe to sync the tab title with the inner document's `<title>`.
 3.  **Entry Point**: The default new tab loads `home.html` from the `public` directory.
+
+### Bundle size / גודל האפליקציה
+
+The whole library (`public/`, ~900 MB, of which `public/shas` is ~846 MB) is compiled
+**into the Rust binary** — `Contents/MacOS/app` is ~580 MB while `Contents/Resources`
+is under a megabyte. That is what makes the app fully offline, and it is also why the
+download is ~550 MB and why **every** update is a full re-download regardless of how
+small the change is. Moving the content into `bundle.resources` would shrink the
+binary to ~10 MB and make incremental updates small; it would require the iframes to
+load from a resource path instead of the embedded frontend.
+
+### Updates / עדכונים
+
+Sparkle is wired in through
+[`tauri-plugin-sparkle-updater`](https://github.com/ahonn/tauri-plugin-sparkle-updater),
+with `Sparkle.framework` 2.8.1 bundled into the app:
+
+- Configured entirely from `src-tauri/Info.plist` — `SUFeedURL`, `SUPublicEDKey`,
+  a check on launch and every 24 h, and **no** silent install (the user confirms).
+- Updates are verified with an **EdDSA (ed25519)** signature. The key is the
+  studio-wide one shared with the other direct-download apps (Iconduit, Snippet,
+  the Office Tabs family), kept outside this repo at
+  `~/Developer/myData/Sparkle/sparkle_private_key.txt`.
+- `src-tauri/.cargo/config.toml` points the plugin's build script at the framework
+  and adds the `@executable_path/../Frameworks` rpath it needs at runtime.
+- Sparkle is macOS-only: the Cargo dependency, the plugin registration in `lib.rs`,
+  and `capabilities/sparkle.json` are all platform-gated, so iOS builds are untouched.
+- It does **not** run under `pnpm tauri dev` — Sparkle needs a real `.app` bundle.
 
 ---
 
@@ -69,12 +120,71 @@ The application is structured as a hybrid desktop app:
 
 ### Build / בנייה לפרדוקשן
 
-To create the production application:
-ליצירת קובץ ההתקנה הסופי:
-
 ```bash
 pnpm tauri build
 ```
 
-Artifacts will be output to: `src-tauri/target/release/bundle`
-הקבצים ייווצרו בנתיב הנ"ל.
+Artifacts go to `src-tauri/target/release/bundle`. This produces an **unsigned**
+build — for development only. For anything you hand to another person, use the
+release flow below.
+
+---
+
+## Release / שחרור גרסה
+
+Releasing is two commands. Bump `version` in `src-tauri/tauri.conf.json` (and
+`src-tauri/Cargo.toml`) first, and add the new entry at the top of
+[CHANGELOG.md](CHANGELOG.md).
+
+```bash
+./scripts/release-macos.sh    # build → sign → notarize → staple → sign appcast
+./scripts/publish-r2.sh       # upload DMG + appcast to R2
+```
+
+Existing users get the update automatically within a day.
+
+### The scripts / הסקריפטים
+
+| Script | What it does |
+|--------|--------------|
+| `scripts/fetch-sparkle.sh` | Downloads Sparkle 2.8.1 into `src-tauri/Frameworks/` (checksum-pinned). Run **once per clone** — the framework is gitignored because this repo is public. |
+| `scripts/sign-sparkle.sh` | Re-signs Sparkle with our Developer ID, inside out. Run automatically by the release script. |
+| `scripts/release-macos.sh` | The full release build. `--universal` also builds for Intel (roughly doubles the download). |
+| `scripts/publish-r2.sh` | Publishes what's staged in `releases/` to Cloudflare R2. |
+
+### What the release script does / מה הסקריפט עושה
+
+1. Signs `Sparkle.framework` with Developer ID, hardened runtime and a secure
+   timestamp — **inside out** (XPC services → `Updater.app` → `Autoupdate` → the
+   framework). Tauri only signs the app itself and not the binaries nested inside a
+   bundled framework, and Apple's notary service rejects the build without this.
+2. Builds and bundles, signing with **Developer ID Application** + hardened runtime.
+   Tauri notarizes and staples the `.app` during this step.
+3. Signs, notarizes and staples the **`.dmg` as well** — Tauri does not, and without
+   it the user still gets a Gatekeeper warning when opening the disk image.
+4. Copies the DMG to `releases/Sfarim.dmg` and generates an EdDSA-signed
+   `appcast.xml` next to it.
+5. Verifies everything: `codesign --verify --deep --strict` (app *and* framework),
+   `spctl -a -t exec`, and `stapler validate` on both the app and the DMG.
+
+Credentials are never hardcoded — this repo is public. The signing identity, the
+notarytool API key (issuer, key id, `.p8` path) and the Sparkle key are all read at
+runtime from `~/Developer/app-hub/DATA.md` and `~/Developer/myData/Sparkle/`, and can
+be overridden with `APPLE_API_*` / `SPARKLE_KEY` environment variables.
+
+### Published layout / מבנה הפרסום
+
+The DMG is always published under a **stable name**, so the download link never
+changes between versions (same convention as the other direct apps — `SnippetBar.dmg`,
+`Iconduit.dmg`):
+
+```
+apps/sfarim/releases/Sfarim.dmg               ← stable name: download link + appcast enclosure
+apps/sfarim/releases/<version>/Sfarim-<v>.dmg ← versioned archive copy
+apps/sfarim/releases/appcast.xml              ← Sparkle feed
+```
+
+Served from Cloudflare R2 at `https://storage.bdtech.app/sfarim/releases/`, uploaded
+with `rclone` (multipart — the DMG is far past the single-request limit). The DMG is
+uploaded **before** the appcast, so the feed never advertises a build that isn't
+downloadable yet.

@@ -1,6 +1,14 @@
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-  tauri::Builder::default()
+  let builder = tauri::Builder::default();
+
+  // Sparkle auto-updates — direct-download macOS builds only.
+  // Configured from Info.plist (SUFeedURL / SUPublicEDKey); a no-op outside a
+  // real .app bundle, so `tauri dev` is unaffected.
+  #[cfg(target_os = "macos")]
+  let builder = builder.plugin(tauri_plugin_sparkle_updater::init());
+
+  builder
     .setup(|app| {
       if cfg!(debug_assertions) {
         app.handle().plugin(

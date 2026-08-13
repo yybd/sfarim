@@ -1,11 +1,22 @@
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
+import { checkForUpdates } from "tauri-plugin-sparkle-updater-api";
 import "./App.css";
 
 function App() {
   const [tabs, setTabs] = useState([{ id: 1, title: "New Tab", url: "/home.html" }]);
   const [activeTabId, setActiveTabId] = useState(1);
+
+  // Sparkle checks in the background on its own schedule; this is the manual check.
+  // Sparkle draws its own native UI, so there is nothing to render here.
+  const handleCheckForUpdates = async () => {
+    try {
+      await checkForUpdates();
+    } catch (err) {
+      console.warn("Update check failed:", err);
+    }
+  };
 
   const handleAddTab = () => {
     const newId = Date.now();
@@ -56,6 +67,13 @@ function App() {
         ))}
         <button className="add-tab-btn" onClick={handleAddTab} title="New Tab">
           +
+        </button>
+        <button
+          className="add-tab-btn update-btn"
+          onClick={handleCheckForUpdates}
+          title="בדיקת עדכונים"
+        >
+          ⟳
         </button>
       </div>
 
