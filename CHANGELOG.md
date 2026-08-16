@@ -9,6 +9,30 @@ the app ever ships to the App Store, as the release notes for that version.
 
 ---
 
+## Unreleased — ש״ס חדש (טקסט חי בצורת הדף)
+
+*Built locally and installed for testing. Not published — no version bump, no
+Sparkle release.*
+
+**Added**
+- **ש״ס חדש** — a second Talmud library, reachable from a green button on the home
+  screen. Every one of the 5,513 dapim is now real, live HTML text laid out in exact
+  צורת הדף, instead of a page image: the Vilna page form is reproduced run by run at
+  the original coordinates, in the original fonts extracted from the source.
+- **Selectable, searchable text** — the daf lives in the page itself, so text can be
+  selected with the mouse, found with Cmd+F, and printed. Copying yields one
+  continuous line — no line breaks and no glued words.
+- **Zones and segments** — gemara, Rashi, Tosafot, the margins and the header are
+  identified per page, and each Rashi/Tosafot דיבור המתחיל is a whole selectable
+  segment. Clicking a segment highlights it.
+- **Crisp at any zoom** — the daf is re-rendered at the target size rather than
+  scaled as an image, so letters stay sharp however far you zoom in. The `+` and `-`
+  keys zoom as well, alongside the toolbar buttons.
+- **Open-book look** — the daf curves gently into the binding and the edge of the
+  facing page shows alongside it, full height, on the correct side for עמוד א / ב.
+
+---
+
 ## v1.0.0 — first public release
 
 *Released 2026-08-13 · macOS 11+ · **Apple Silicon only** · direct download*
