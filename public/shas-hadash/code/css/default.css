@@ -1,0 +1,289 @@
+﻿body {
+  font-family: helvetica, sans-serif;
+  /*
+    color:#fff;
+    background:#414041;
+    */
+  direction: rtl;
+  vertical-align: middle;
+
+
+}
+
+
+
+tr>td {
+
+  vertical-align: middle;
+}
+
+#shas,
+#list-mefarshim {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  color: black;
+
+}
+
+.cal {
+  height: 100%;
+  border-bottom: solid;
+  border-color: silver;
+  border-width: 1px;
+  border-spacing: 0px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+#bar {
+  height: 30px;
+  width: 100%;
+  text-align: center;
+  background: silver;
+  display: -webkit-box;
+  display: box;
+  display: flex;
+}
+
+.bt {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  /* IE 10 */
+  flex: 1;
+  box-sizing: border-box;
+  border-right: solid;
+  border-color: #fff;
+  border-width: 1px;
+  border-spacing: 0px;
+}
+
+#next {
+  order: 3;
+}
+
+#back {
+  order: 1;
+}
+
+#show {
+  order: 2;
+}
+
+ul {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#col-daf {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+#daf-con {
+  display: -webkit-box;
+  display: -webkit-flex;
+  /* Safari */
+  display: flex;
+}
+
+.daf {
+  -webkit-box-flex: 1;
+  flex: 1;
+  object-fit: contain;
+}
+
+#bar-daf {
+  flex-basis: 5%;
+  -webkit-flex-basis: 5%;
+  height: 1000px;
+  overflow: hidden;
+  overflow-y: scroll;
+  order: 1;
+}
+
+#daf {
+  flex-basis: 88%;
+  -webkit-flex-basis: 88%;
+  order: 2;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  border-top: 2px solid #e9ebf0;
+  border-bottom: 2px solid #e9ebf0;
+}
+
+#d-left {
+
+  font-size: larger;
+}
+
+.headerMf {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#con-mefares {
+  text-align: justify;
+  padding: 20px;
+}
+
+.nam-daf {
+  height: 30px;
+  width: 30px;
+  border: solid;
+  border-color: silver;
+  border-width: 1px;
+  border-spacing: 0px;
+  float: right;
+  text-align: center;
+}
+
+
+li {
+  list-style-type: none;
+}
+
+
+#con-text-gmara {
+  padding: 0;
+  min-height: 80vh;
+  text-align: justify;
+}
+
+
+
+
+
+
+body {
+  padding: 0;
+  font-family: source-sans-pro, sans-serif;
+  overflow-x: hidden;
+}
+
+:focus {
+  outline-color: transparent;
+  outline-style: none;
+}
+
+.full {
+  width: 100%
+}
+
+input {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0.001;
+}
+
+label {
+  position: relative;
+}
+
+.title {
+  letter-spacing: -.065em;
+}
+
+.spacer {
+  padding: 25px 0;
+}
+
+.topcoat-tab-bar {
+  display: table;
+  table-layout: fixed;
+  white-space: no-wrap;
+  font-size: 0;
+}
+
+.topcoat-tab-bar__item {
+  display: table-cell;
+  width: auto;
+  /* reset what was removed by tab bar */
+  font-size: 16px;
+}
+
+.topcoat-tab-bar__button {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  padding: 0 1.25rem;
+  border: none;
+  border-top: 1px solid #a5a8a8;
+  background-color: #e5e9e8;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  -webkit-box-shadow: inset 0 1px #fff;
+  box-shadow: inset 0 1px #fff;
+  color: #454545;
+  vertical-align: top;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px #fff;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  font: inherit;
+  line-height: 3rem;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-text-overflow: ellipsis;
+}
+
+:checked+.topcoat-tab-bar__button,
+.topcoat-tab-bar__button:active,
+.topcoat-tab-bar__button.is-active {
+  color: #0083e8;
+  background-color: #e0f0fa;
+  -webkit-box-shadow: inset 1px 1px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 0 2px #c0ced8;
+}
+
+.topcoat-tab-bar__item:disabled,
+.topcoat-tab-bar__item.is-disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+.topcoat-tab-bar__button:focus {
+  -webkit-box-shadow: 0 0 0 2px #6fb5f1;
+  box-shadow: 0 0 0 2px #6fb5f1;
+  z-index: 1;
+}
+
+/* Custom Modal Styling */
+.custom-full-width {
+  max-width: 98vw !important;
+}
+
+.modal-dialog-scrollable .modal-content {
+  max-height: 98vh;
+}
+
+/* Book Binding Effect */
+.effect-left-page {
+  /* Even Page (Left Side) -> Binding on Right */
+  /* Increased negative spread (-20px) to pull shadow away from top/bottom edges */
+  box-shadow: inset -25px 0 35px -20px rgba(0, 0, 0, 0.35), inset -3px 0 5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.effect-right-page {
+  /* Odd Page (Right Side) -> Binding on Left */
+  /* Increased negative spread (-20px) to pull shadow away from top/bottom edges */
+  box-shadow: inset 25px 0 35px -20px rgba(0, 0, 0, 0.35), inset 3px 0 5px rgba(0, 0, 0, 0.1) !important;
+}
