@@ -40,6 +40,41 @@
     return !/rashi/i.test(f);       // גופני TrueType — לפי שמם
   }
 
+  // --------------------------------------------------------------- גופנים
+
+  function eachFace(fn) {
+    var fs = document.fonts;
+    if (!fs) return false;
+    if (fs.forEach) { fs.forEach(fn); return true; }
+    if (fs.values) {                       // דפדפנים ישנים — איטרטור בלבד
+      var it = fs.values(), n;
+      while (!(n = it.next()).done) fn(n.value);
+      return true;
+    }
+    return false;
+  }
+
+  function fontsReady() {
+    if (!document.fonts) return true;      // אין API — אין מה לחכות לו
+    var pending = false;
+    var ok = eachFace(function (f) {
+      if (/^Shas/.test(f.family) && f.status !== 'loaded') pending = true;
+    });
+    return ok ? !pending : document.fonts.status === 'loaded';
+  }
+
+  // מאלץ הורדה של כל גופני הדף במקום להמתין לטעינה עצלה
+  function ensureFonts() {
+    if (!document.fonts) return Promise.resolve();
+    var jobs = [];
+    eachFace(function (f) {
+      if (/^Shas/.test(f.family) && f.status === 'unloaded') {
+        try { jobs.push(f.load().catch(function () {})); } catch (e) { /* ignore */ }
+      }
+    });
+    return Promise.all(jobs).then(function () { return document.fonts.ready; });
+  }
+
   function daf() { return document.querySelector('.daf-page'); }
   function num(el, k) { return parseFloat(el.dataset[k]); }
 
@@ -52,8 +87,7 @@
     var mass = {}, total = 0, cands = [];
     lines.forEach(function (ln) {
       if (parseFloat(ln.style.top) <= 28) return;
-      var main = mainRun(ln);
-      if (!main || !isSquare(main)) return;
+      if (!isSquareLine(ln)) return;
       var n = 0;
       ln.querySelectorAll('.w').forEach(function (w) { n += w.textContent.length; });
       var k = num(ln, 'size').toFixed(1);
@@ -76,19 +110,25 @@
     return { box: { x0: x0, x1: x1, y0: y0, y1: y1 }, size: gsize };
   }
 
-  function mainRun(ln) {
-    var best = null;
+  // סוג-הכתב של שורה נקבע לפי מסת האותיות ולא לפי הריצה הארוכה ביותר:
+  // לשורת גמרא נגררת לפעמים מילה בודדת בכתב רש"י מהטור הסמוך, ודי היה
+  // בה כדי להעיף את כל השורה לאזור רש"י/תוס' — ושם גלאי הד"ה מדגיש
+  // את המילים המרובעות שבה.
+  function isSquareLine(ln) {
+    var sq = 0, other = 0;
     ln.querySelectorAll('.w').forEach(function (w) {
-      if (!best || w.textContent.length > best.textContent.length) best = w;
+      var n = w.textContent.replace(/[^א-ת]/g, '').length;
+      if (!n) return;
+      if (isSquare(w)) sq += n; else other += n;
     });
-    return best;
+    return sq > other;
   }
 
   function classify(ln, gb, rashiSide, gsize) {
     var x0 = num(ln, 'x0'), x1 = num(ln, 'x1'), top = parseFloat(ln.style.top);
-    var cx = (x0 + x1) / 2, main = mainRun(ln), size = num(ln, 'size');
+    var cx = (x0 + x1) / 2, size = num(ln, 'size');
     if (top < 28) return 'header';
-    if (size >= 0.9 * gsize && main && isSquare(main) &&
+    if (size >= 0.9 * gsize && isSquareLine(ln) &&
         cx >= gb.x0 - 10 && cx <= gb.x1 + 10) return 'gemara';
     if (top > gb.y1 + 8) return 'bottom';
     var inGemaraX = cx >= gb.x0 - 10 && cx <= gb.x1 + 10;
@@ -221,11 +261,19 @@
   var Daf = {
     ZONES: ZONES,
     // בנייה מחדש — לשימוש כשמזריקים דף חדש לאותו מסמך
-    build: function () { build(); },
+    build: function () {
+      build();
+      ensureFonts().then(function () { Daf.fit(); });
+    },
 
     fit: function () {
       var box = daf();
       if (!box) return;
+      // הגופנים חייבים להיות טעונים לפני המדידה. ‎document.fonts.ready
+      // לבדו אינו מספיק: הוא נפתר גם כשעדיין לא התחילה טעינה כלשהי
+      // (הדפדפן מוריד גופן רק כשהטקסט נכנס לפריסה), ואז נמדד גופן חלופי
+      // וכל הריצות נמתחות לפי מספר שגוי — זה מה שנראה בעלייה הראשונה.
+      if (!fontsReady()) { ensureFonts().then(Daf.fit); return; }
       // מקדם התצוגה (zoom/scale של הדפדפן) — בלעדיו המדידה מוחזרת
       // ביחידות מסך ולא ביחידות הדף, וכל הריצות היו נדחסות
       var zoom = box.offsetWidth ?
@@ -315,6 +363,10 @@
   });
 
   build();
-  document.fonts.ready.then(Daf.fit);
+  ensureFonts().then(Daf.fit);
+  // גופן שמסיים להיטען מאוחר (למשל אחרי החלפת דף) — יישור חוזר
+  if (document.fonts && document.fonts.addEventListener) {
+    document.fonts.addEventListener('loadingdone', function () { Daf.fit(); });
+  }
   window.Daf = Daf;
 }());

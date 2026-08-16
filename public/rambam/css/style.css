@@ -161,3 +161,39 @@ textarea {
 .modal-dialog-scrollable .modal-content {
     max-height: 98vh;
 }
+/* ---------------------------------------------------------------------------
+   נייד — טבלת הספרים והכותרת
+   התאים קיבלו גובה לפי אורך השם, ולכן קו ההפרדה בשורה יצא מדורג. עכשיו
+   כל תא נמתח לגובה השורה (‎td{height:1px} מאפשר ל-height:100% לתפוס),
+   והטקסט קטן ומרוכז — כך הקו אחיד והשמות הארוכים אינם נשברים.
+   --------------------------------------------------------------------------- */
+@media (max-width: 991.98px) {
+  #list-rambam-id td {
+    height: 1px;
+    padding: 0;
+  }
+
+  #list-rambam-id .cal {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: .4rem .1rem;
+    font-size: .78rem;
+    line-height: 1.15;
+    /* בלי זה פריט-הפלקס אינו מתכווץ מתחת לרוחב המילה הארוכה, והשם
+       גולש אל התא השכן במקום להישבר. גובה השורה נשאר אחיד ממילא. */
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* כותרת הספר/המסכת — קטנה מספיק כדי להישאר בשורה אחת */
+  #masechet > div {
+    font-size: 1.05rem;
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

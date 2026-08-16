@@ -100,8 +100,11 @@ function start() {
     });
     const el = document.getElementById('mefarshim-bt');
     el.addEventListener("click", () => tableMefasim());
-    const el2 = document.getElementById('text-gmara-bt');
-    el2.addEventListener("click", () => loadDafText(thisMasechet, thisDaf));
+
+    if (!isPinchSetup) {
+        setupPinchZoom();
+        isPinchSetup = true;
+    }
 }
 
 
@@ -215,6 +218,7 @@ function loadMasechet(n_masechet, n_daf) {
 
 var DAF_W = 643.58, DAF_H = 992.58;   // מידות הדף בנקודות
 var scale = 0;                        // 0 = התאם לרוחב אוטומטית
+var MAX_AUTO_W = 1024;                // רוחב ברירת המחדל של הדף (לפני זום ידני)
 var isPinchSetup = false;
 var dafReq = 0;                       // מונה בקשות — מונע "עקיפה" בין דפים
 
@@ -227,7 +231,8 @@ function applyDafScale() {
 
     var s = scale;
     if (!s) {
-        s = container.clientWidth / DAF_W;
+        // ברירת מחדל: רוחב הדף עד MAX_AUTO_W, ובחלון צר יותר — לפי רוחב החלון
+        s = Math.min(container.clientWidth, MAX_AUTO_W) / DAF_W;
         s = Math.max(0.2, Math.min(s, 3));
     }
     // zoom (ולא transform) — הדפדפן מרנדר מחדש בגודל היעד, כך שהאותיות
@@ -307,16 +312,78 @@ function loadDaf(n_masechet, n_daf) {
 
 window.addEventListener('resize', function () { if (!scale) applyDafScale(); });
 
+// ---------------------------------------------------------------------------
+// צביטה להגדלה/הקטנה.
+// באייפון אי אפשר לסמוך על הזום של הדפדפן: ב-WKWebView (האפליקציה) הוא
+// כבוי, ובספארי הוא מגדיל את כל העמוד ולא את הדף. לכן הצביטה נתפסת כאן
+// ומוזנת ל-scale, כלומר ל-CSS zoom — הדף מרונדר מחדש בגודל היעד ונשאר חד.
+// במהלך התנועה נותנים משוב מיידי עם transform (זול), ובסיומה מתחייבים.
+// ---------------------------------------------------------------------------
+function setupPinchZoom() {
+    var container = document.getElementById('canvas-container');
+    var wrap = document.getElementById('pdf-wrapper');
+    if (!container || !wrap) return;
+
+    var startDist = 0, startScale = 0, live = 1;
+
+    function dist(e) {
+        var dx = e.touches[0].clientX - e.touches[1].clientX;
+        var dy = e.touches[0].clientY - e.touches[1].clientY;
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function currentScale() {
+        return scale || Math.min(container.clientWidth, MAX_AUTO_W) / DAF_W;
+    }
+
+    container.addEventListener('touchstart', function (e) {
+        if (e.touches.length !== 2) return;
+        startDist = dist(e);
+        startScale = currentScale();
+        live = 1;
+    }, { passive: true });
+
+    container.addEventListener('touchmove', function (e) {
+        if (e.touches.length !== 2 || !startDist) return;
+        e.preventDefault();               // חוסם את זום העמוד המובנה
+        live = dist(e) / startDist;
+        wrap.style.transformOrigin = 'center top';
+        wrap.style.transform = 'scale(' + live + ')';
+    }, { passive: false });
+
+    function commit() {
+        if (!startDist) return;
+        wrap.style.transform = '';
+        wrap.style.transformOrigin = '';
+        if (Math.abs(live - 1) > 0.01) {
+            scale = Math.max(0.3, Math.min(3, startScale * live));
+            applyDafScale();
+        }
+        startDist = 0;
+        live = 1;
+    }
+
+    container.addEventListener('touchend', commit);
+    container.addEventListener('touchcancel', commit);
+
+    // ספארי שולח גם אירועי gesture — חוסמים כדי שלא יזום את העמוד כולו
+    ['gesturestart', 'gesturechange', 'gestureend'].forEach(function (n) {
+        container.addEventListener(n, function (e) { e.preventDefault(); });
+    });
+}
+
 function zoomIn() {
     var container = document.getElementById('canvas-container');
-    if (!scale) scale = container ? container.clientWidth / DAF_W : 1;
+    if (!scale) scale = container
+        ? Math.min(container.clientWidth, MAX_AUTO_W) / DAF_W : 1;
     scale = Math.min(3, scale + 0.2);
     applyDafScale();
 }
 
 function zoomOut() {
     var container = document.getElementById('canvas-container');
-    if (!scale) scale = container ? container.clientWidth / DAF_W : 1;
+    if (!scale) scale = container
+        ? Math.min(container.clientWidth, MAX_AUTO_W) / DAF_W : 1;
     if (scale > 0.4) { scale -= 0.2; applyDafScale(); }
 }
 
@@ -334,6 +401,8 @@ function makeList(n_masechet) {
             //var daf = document.getElementById("daf");
             //daf.src = "shas/" + n_masechet + "/" + this.id + ".pdf"
             loadDaf(n_masechet, this.id);
+            // בנייד הרשימה צפה מעל הדף — נסגרת אחרי הבחירה
+            if (window.matchMedia('(max-width: 991.98px)').matches) closeDafList();
         }
         bar.appendChild(div);
 
@@ -623,23 +692,6 @@ function nextMf() {
 
 }
 
-function backG() {
-    back();
-    //document.getElementById("con-text-gmara").innerHTML = "";
-    loadDafText(thisMasechet, thisDaf);
-    document.getElementById("title-daf-mefaresh").innerHTML = a(thisDaf);
-
-
-}
-function nextG() {
-    next()
-    //document.getElementById("con-text-gmara").innerHTML = "";
-    loadDafText(thisMasechet, thisDaf);
-    document.getElementById("title-daf-gmara").innerHTML = a(thisDaf);
-
-}
-
-
 var myIFrame = document.getElementById("daf-text");
 var cssLink = document.createElement("link")
 cssLink.href = "code/css/default.css";
@@ -658,6 +710,12 @@ function toggleDafList() {
         // Shrink content to make space (restore original mobile layout)
         contentCol.classList.remove("col-12");
         contentCol.classList.add("col-10");
+
+        // בנייד הרשימה צפה מעל הדף — נגיעה בדף סוגרת אותה
+        if (window.matchMedia('(max-width: 991.98px)').matches) {
+            document.getElementById('canvas-container')
+                .addEventListener('click', closeDafList, { once: true });
+        }
     } else {
         // Hide List
         dafCol.classList.add("d-none");
@@ -666,4 +724,9 @@ function toggleDafList() {
         contentCol.classList.remove("col-10");
         contentCol.classList.add("col-12");
     }
+}
+
+function closeDafList() {
+    var dafCol = document.getElementById("col-daf");
+    if (dafCol && !dafCol.classList.contains("d-none")) toggleDafList();
 }
