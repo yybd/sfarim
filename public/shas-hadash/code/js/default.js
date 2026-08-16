@@ -81,6 +81,22 @@ function start() {
             e.preventDefault();
             //togglebt();
         }
+        // מקשי + / - במקלדת — הגדלה והקטנה של הדף (כמו כפתורי הזום בממשק).
+        // '=' נחשב כמו '+' (אותו מקש בלי Shift). לא כשהמיקוד בשדה קלט,
+        // ולא עם Cmd/Ctrl — כדי לא לדרוס את זום הדפדפן/מערכת.
+        var tag = (document.activeElement || {}).tagName;
+        var typing = tag === 'INPUT' || tag === 'TEXTAREA' ||
+            (document.activeElement || {}).isContentEditable;
+        if (!typing && !e.metaKey && !e.ctrlKey && !e.altKey) {
+            if (e.key === '+' || e.key === '=') {
+                e.preventDefault();
+                zoomIn();
+            }
+            if (e.key === '-') {
+                e.preventDefault();
+                zoomOut();
+            }
+        }
     });
     const el = document.getElementById('mefarshim-bt');
     el.addEventListener("click", () => tableMefasim());
@@ -220,6 +236,13 @@ function applyDafScale() {
     if (wrap) {
         wrap.style.width = (DAF_W * s) + 'px';
         wrap.style.height = (DAF_H * s) + 'px';
+        // מידות אפקט הכריכה נגזרות מהרוחב המוצג, כך שהמראה זהה בכל זום
+        wrap.style.setProperty('--gutter-w', (0.018 * DAF_W * s) + 'px');
+        wrap.style.setProperty('--gutter-r', (0.006 * DAF_W * s) + 'px');
+        // הדף עצמו יושב בתוך ‎#the-daf שמוגדל ב-zoom, ולכן כל px בתוכו נמתח
+        // פי s. כדי שהפינה שלו תהיה זהה בדיוק לפינת שכבת ההצללה שמחוצה לו,
+        // הרדיוס הפנימי נמסר ביחידות הדף (בלי s)
+        wrap.style.setProperty('--gutter-rp', (0.006 * DAF_W) + 'px');
     }
     if (window.Daf) Daf.fit();
 }
@@ -233,10 +256,16 @@ function loadDaf(n_masechet, n_daf) {
     if (n_daf == talmud[n_masechet][1] - 1) { $(".bi-chevron-left").hide(); }
     else { $(".bi-chevron-left").show(); }
 
+    var bindRight = n_daf % 2 === 0;          // עמוד א — הכריכה מימין
     var overlayEl = document.getElementById('book-effect-overlay');
     if (overlayEl) {
         overlayEl.classList.remove('effect-left-page', 'effect-right-page');
-        overlayEl.classList.add(n_daf % 2 === 0 ? 'effect-left-page' : 'effect-right-page');
+        overlayEl.classList.add(bindRight ? 'effect-left-page' : 'effect-right-page');
+    }
+    var wrapEl = document.getElementById('pdf-wrapper');
+    if (wrapEl) {
+        wrapEl.classList.remove('binding-right', 'binding-left');
+        wrapEl.classList.add(bindRight ? 'binding-right' : 'binding-left');
     }
 
     var host = document.getElementById('the-daf');
