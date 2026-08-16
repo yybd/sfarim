@@ -1,6 +1,6 @@
 [package]
 name = "app"
-version = "1.0.0"
+version = "1.0.1"
 description = "Sfarim — Tanach, Mishna, Shas and Rambam in a tabbed desktop reader"
 authors = ["Yechiel Ben David <yybd@bdtech.app>"]
 license = ""
