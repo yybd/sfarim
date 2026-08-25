@@ -1,3 +1,4 @@
 [submodule "public/shas-hadash"]
 	path = public/shas-hadash
 	url = https://github.com/yybd/shas-hadash.git
+	branch = master

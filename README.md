@@ -101,11 +101,44 @@ with `Sparkle.framework` 2.8.1 bundled into the app:
 
 ## Development / פיתוח
 
+### The Talmud viewer is a submodule / מציג הש"ס הוא submodule
+
+`public/shas-hadash` is **not part of this repo**. It is a git submodule of
+[yybd/shas-hadash](https://github.com/yybd/shas-hadash) — the single source of
+truth for the Vilna-layout Talmud viewer (pages, `daf.js` logic, commentaries),
+shared with the `talmud-ai` project.
+
+**Never edit it here.** All viewer work happens in `talmud-ai`
+(`~/Developer/AI/talmud-ai/public/shas-hadash`), which is the working repo.
+sfarim only consumes what has already been pushed:
+
+```bash
+git submodule update --remote public/shas-hadash
+git add public/shas-hadash && git commit -m "עדכון הש\"ס" && git push
+```
+
+After that the submodule sits in **detached HEAD** — that is correct and
+intended here: it is the marker that sfarim is a consumer, not an editing site.
+
+If `git status` shows `M public/shas-hadash` when you changed nothing, the
+working tree has drifted from the recorded pointer. Resync with:
+
+```bash
+git submodule update --init --recursive public/shas-hadash
+```
+
+מציג הש"ס הוא submodule ממקור אמת משותף. **לא עורכים אותו כאן** — כל עריכה
+נעשית ב-talmud-ai, וכאן רק מושכים. הנוהל המלא מתועד ב-README של
+[shas-hadash](https://github.com/yybd/shas-hadash).
+
 ### Prerequisites / דרישות קדם
 
 - Node.js
 - pnpm (recommended)
 - Rust (for Tauri build)
+- Clone with `git clone --recurse-submodules` (or run `git submodule update --init`
+  after a plain clone) — otherwise `public/shas-hadash` is an empty directory and
+  the build fails.
 
 ### Setup / התקנה
 
