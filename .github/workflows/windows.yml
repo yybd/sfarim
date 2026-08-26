@@ -19,8 +19,13 @@ jobs:
     timeout-minutes: 90
 
     steps:
+      # ש״ס חדש הוא submodule (public/shas-hadash, ~334MB) ובלעדיו vite
+      # מעתיק תיקייה ריקה וההתקנה נבנית בלי ספריית הגמרא כולה.
+      # fetch-depth ברירת המחדל הוא 1, ולכן גם ה-submodule נמשך רדוד.
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable

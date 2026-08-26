@@ -9,10 +9,7 @@ the app ever ships to the App Store, as the release notes for that version.
 
 ---
 
-## Unreleased — ש״ס חדש (טקסט חי בצורת הדף)
-
-*Built locally and installed for testing. Not published — no version bump, no
-Sparkle release.*
+## v1.0.1 — ש״ס חדש (טקסט חי בצורת הדף)
 
 **Added**
 - **ש״ס חדש** — a second Talmud library, reachable from a green button on the home
@@ -30,6 +27,17 @@ Sparkle release.*
   keys zoom as well, alongside the toolbar buttons.
 - **Open-book look** — the daf curves gently into the binding and the edge of the
   facing page shows alongside it, full height, on the correct side for עמוד א / ב.
+- **Tractate picker on the page** — the toolbar now carries the name of the open
+  tractate with a caret; clicking it opens the picker. It sits centred above the
+  daf instead of hiding behind a book icon, so the tractate you are in is always
+  visible. The six סדרים are told apart in the picker by letter weight.
+
+**Fixed**
+- **The daf toolbar no longer stacks** — the zoom buttons used to fall onto a
+  second line on narrow windows, costing half the toolbar's height.
+- Commentary segments that disappeared with the eye button, column-detection and
+  bottom-strip errors on a number of dapim, and reference markers swallowed into
+  the דיבור המתחיל.
 
 ---
 
