@@ -80,7 +80,12 @@ xcrun stapler staple "$DMG"
 # points at; scripts/publish-r2.sh also archives a versioned copy under <version>/.
 if [ -f "$SPARKLE_KEY" ] && [ -x "$SPARKLE_TOOLS/generate_appcast" ]; then
   mkdir -p releases
-  rm -f releases/*.dmg          # only ever one DMG in the staging dir
+  # Only ever one DMG *and* one item in the staging dir. generate_appcast merges
+  # into an existing appcast.xml, and a leftover item from an older release still
+  # points at the stable URL — which by then holds a different build, so its
+  # length and signature no longer match. The published feed carries the newest
+  # release only; that is what the stable name implies.
+  rm -f releases/*.dmg releases/appcast.xml
   cp "$DMG" "releases/$STABLE_NAME"
   echo "▶︎ generating signed appcast…"
   "$SPARKLE_TOOLS/generate_appcast" \
