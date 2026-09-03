@@ -9,6 +9,18 @@ the app ever ships to the App Store, as the release notes for that version.
 
 ---
 
+## v1.0.2 — הגופנים של הש״ס החדש
+
+**Fixed**
+- **The ש״ס חדש pages are back in their own fonts.** The whole Talmud was rendering
+  in the default system font — the gemara not in כתב וילנא, Rashi and Tosafot not in
+  כתב רש״י. The viewer adopted only the daf itself out of each page file and dropped
+  the `<style>` blocks that came with it, and those blocks are where the newer pages
+  declare their fonts. Nothing on the page ever asked for the Talmud fonts, so none
+  of them loaded.
+
+---
+
 ## v1.0.1 — ש״ס חדש (טקסט חי בצורת הדף)
 
 **Added**

@@ -32,7 +32,7 @@ stays valid across versions. ~550 MB (the entire library ships inside the app).
 
 ---
 
-**Version 1.0.1** · ש״ס חדש — טקסט חי בצורת הדף
+**Version 1.0.2** · הגופנים של הש״ס החדש
 Full history: [CHANGELOG.md](CHANGELOG.md)
 
 ## Features / תכונות
